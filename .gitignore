@@ -1,0 +1,74 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+myenv/
+
+# Ignore dependency management files (optional)
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore CSV files
+*.csv
+
+# Ignore logs and temp files
+*.log
+*.out
+*.tmp
+
+# Ignore environment variables and secrets
+.env
+*.env
+.env.*
+secrets.toml
+
+# Ignore FastAPI-specific generated files (if any)
+*.db
+*.sqlite3
+instance/
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoints (if using Jupyter)
+.ipynb_checkpoints/
+
+# Ignore compiled Cython files (if applicable)
+*.so
+# Alembic cache or state (optional)
+alembic/__pycache__/
