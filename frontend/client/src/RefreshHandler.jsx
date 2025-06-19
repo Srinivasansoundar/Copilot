@@ -9,6 +9,7 @@ function RefrshHandler({ setIsAuthenticated }) {
         if (localStorage.getItem('token')) {
             setIsAuthenticated(true);
             if (location.pathname === '/' ||
+                
                 location.pathname === '/login' ||
                 location.pathname === '/signup'
             ) {
@@ -23,3 +24,5 @@ function RefrshHandler({ setIsAuthenticated }) {
 }
 
 export default RefrshHandler
+
+

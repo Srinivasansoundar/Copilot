@@ -47,7 +47,7 @@ function Login() {
                 localStorage.setItem('token', access_token);
                 localStorage.setItem('loggedInUser', username); // Use username from loginInfo
                 setTimeout(() => {
-                    navigate('/home')
+                    navigate('/chat')
                 }, 1000)
             } else {
                 // Error case - backend returns HTTPException with detail

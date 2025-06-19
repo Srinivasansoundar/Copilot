@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
+
 from redis.asyncio import Redis
 # CORS setup
 
@@ -8,7 +9,7 @@ import httpx
 app=FastAPI(
     title="shipper copilot",
     version='v0',
-    description="This is the conversational agest for multi user"
+    description="This is the conversational agent for multi user"
 )
 app.add_middleware(
     CORSMiddleware,

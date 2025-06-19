@@ -3,8 +3,10 @@ from sqlalchemy.orm import sessionmaker
 
 from src import config
 
+from urllib.parse import quote_plus
+
 DB_USERNAME = config.DB_USERNAME
-DB_PASSWORD = config.DB_PASSWORD
+DB_PASSWORD = quote_plus(config.DB_PASSWORD)  # encode special chars
 DB_HOST = config.DB_HOST
 DB_NAME = config.DB_NAME
 

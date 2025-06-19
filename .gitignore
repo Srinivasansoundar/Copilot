@@ -18,13 +18,13 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
-*.ntvs*
+.ntvs
 *.njsproj
 *.sln
 *.sw?
 
 # Ignore Python bytecode and cache
-__pycache__/
+_pycache_/
 *.py[cod]
 *.pyo
 *.pyd
@@ -63,7 +63,7 @@ secrets.toml
 *.db
 *.sqlite3
 instance/
-__pycache__/
+_pycache_/
 
 # Ignore Jupyter Notebook checkpoints (if using Jupyter)
 .ipynb_checkpoints/
@@ -71,4 +71,4 @@ __pycache__/
 # Ignore compiled Cython files (if applicable)
 *.so
 # Alembic cache or state (optional)
-alembic/__pycache__/
+alembic/_pycache_/
