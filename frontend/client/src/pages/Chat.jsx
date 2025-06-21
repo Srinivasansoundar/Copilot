@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
+import './chat.css';
 
 function Chat() {
   const [query, setQuery] = useState('');

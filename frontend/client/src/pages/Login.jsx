@@ -22,7 +22,9 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        // console.log("hello")
         const { username, password } = loginInfo;
+        
         if (!username || !password) {
             return handleError('username and password are required')
         }
@@ -31,12 +33,12 @@ function Login() {
             const formData = new FormData();
             formData.append('username', username);
             formData.append('password', password);
-
+            console.log("hello")
             const response = await fetch("/api/auth/login", {
                 method: "POST",
                 body: formData // Send as form data, not JSON
             });
-
+            // console.log('hello')
             const result = await response.json();
 
             if (response.ok) {
@@ -131,6 +133,7 @@ function Login() {
                 </div>
             </div>
         </div>
+        
     )
 }
 
