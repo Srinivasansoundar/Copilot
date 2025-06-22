@@ -37,7 +37,7 @@ DIAGRAMS_DIR.mkdir(exist_ok=True)
 router = APIRouter(prefix='/api', tags=['auth_and_chat'])
 
 # ---------------- LLM + SmartDataFrame Setup ----------------
-DATASET_PATH = "C:\\Users\\swath\Desktop\\Project\\eShipz\\Copilot\\backend\\data1.csv"
+DATASET_PATH = "C:\\Users\\Srinivasan\\Documents\\skills\\Projects\\eshipz\\csv-query-assistant\\backend\\filename.csv"
 df = pd.read_csv(DATASET_PATH)
 
 api_key = os.getenv("GROQ_API_KEY")
@@ -342,57 +342,57 @@ REMINDER: Do NOT return any code. Return ONLY the structured result in JSON form
         ### Instructions:
         Provide a clear, concise answer to the question based on the available data.
         
-        IMPORTANT: Return in PandasAI format: {{"type": "string", "value": json.dumps({{"answer": "Your answer here"}})}}
+        IMPORTANT: Return in PandasAI format: {{"type": "string", "value": json.dumps({{ answer:"Your answer here"}})}}
         
         Example:
         import json
-        result = {{"answer": "Top carrier by shipment volume is Delhivery with 1,234 shipments."}}
+        result = {{answer: "Top carrier by shipment volume is Delhivery with 1,234 shipments."}}
         return {{"type": "string", "value": json.dumps(result)}}
         """
 
         response = smart_df.chat(answer_prompt)
         logger.info(response)
-        # # Handle case where smart_df.chat returns a dict
-        # if isinstance(response, dict):
-        #     response = response.get('value', str(response))
+        # Handle case where smart_df.chat returns a dict
+        if isinstance(response, dict):
+            response = response.get('value', str(response))
             
-        # logger.info(f"Non-viz response: {response}")
+        logger.info(f"Non-viz response: {response}")
         
-        # # Try to parse as JSON
-        # try:
-        #     # Handle PandasAI response format
-        #     if isinstance(response, dict):
-        #         if "value" in response:
-        #             # Extract the JSON string from PandasAI format
-        #             response_json = json.loads(response["value"])
-        #             answer = response_json.get("answer", "")
-        #             return {"answer": answer}
-        #         else:
-        #             answer = response.get("answer", str(response))
-        #             return {"answer": answer}
+        # Try to parse as JSON
+        try:
+            # Handle PandasAI response format
+            if isinstance(response, dict):
+                if "value" in response:
+                    # Extract the JSON string from PandasAI format
+                    response_json = json.loads(response["value"])
+                    answer = response_json.get("answer", "")
+                    return {"answer": answer}
+                else:
+                    answer = response.get("answer", str(response))
+                    return {"answer": answer}
             
-        #     # Handle string responses
-        #     if isinstance(response, str):
-        #         # Try extracting JSON from markdown code block
-        #         json_match = re.search(r'```(?:json)?\s*(.*?)\s*```', response, re.DOTALL)
-        #         if json_match:
-        #             try:
-        #                 response_json = json.loads(json_match.group(1))
-        #                 answer = response_json.get("answer", "")
-        #                 return {"answer": answer}
-        #             except json.JSONDecodeError:
-        #                 logger.warning("Found code block but couldn't parse as JSON")
+            # Handle string responses
+            if isinstance(response, str):
+                # Try extracting JSON from markdown code block
+                json_match = re.search(r'```(?:json)?\s*(.*?)\s*```', response, re.DOTALL)
+                if json_match:
+                    try:
+                        response_json = json.loads(json_match.group(1))
+                        answer = response_json.get("answer", "")
+                        return {"answer": answer}
+                    except json.JSONDecodeError:
+                        logger.warning("Found code block but couldn't parse as JSON")
                 
-        #         # Try parsing the entire response as JSON
-        #         try:
-        #             response_json = json.loads(response)
-        #             answer = response_json.get("answer", "")
-        #             return {"answer": answer}
-        #         except json.JSONDecodeError:
-        #             logger.warning("Response is not valid JSON")
+                # Try parsing the entire response as JSON
+                try:
+                    response_json = json.loads(response)
+                    answer = response_json.get("answer", "")
+                    return {"answer": answer}
+                except json.JSONDecodeError:
+                    logger.warning("Response is not valid JSON")
     
-        # except Exception as e:
-        #     logger.error(f"Error parsing response: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error parsing response: {str(e)}")
     
         # Fallback: Return the raw response as answer
         return {"answer": str(response)}
