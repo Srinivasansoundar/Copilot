@@ -1,6 +1,8 @@
-
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './chat.css';
+import { ToastContainer } from 'react-toastify';
+import { handleSuccess, handleError } from '../utils';
 
 function Chat() {
   const [query, setQuery] = useState('');
@@ -9,9 +11,9 @@ function Chat() {
   const [dataSummary, setDataSummary] = useState(null);
   const [generateDiagram, setGenerateDiagram] = useState(false);
   const messagesEndRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Add welcome message on mount
     setMessages([{
       type: 'assistant',
       content: 'Hello! I can help you analyze your CSV data. What would you like to know? You can ask for diagrams by including words like "chart," "plot," "graph," or "visualize" in your question.'
@@ -36,10 +38,7 @@ function Chat() {
         }
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch data summary');
-      }
-
+      if (!response.ok) throw new Error('Failed to fetch data summary');
       const data = await response.json();
       setDataSummary(data.summary);
     } catch (error) {
@@ -114,6 +113,48 @@ function Chat() {
     setGenerateDiagram(!generateDiagram);
   };
 
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        const response = await fetch("http://localhost:5000/api/auth/logout", {
+          method: "POST",
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          handleSuccess(result.message || 'User Logged out');
+        } else {
+          console.warn('Backend logout failed, clearing local storage anyway');
+          handleSuccess('User Logged out');
+        }
+      } else {
+        handleSuccess('User Logged out');
+      }
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedInUser');
+
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
+
+    } catch (err) {
+      console.error('Logout error:', err);
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedInUser');
+      handleSuccess('User Logged out');
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
+    }
+  };
+
   return (
     <div className="app-container">
       <header>
@@ -127,9 +168,12 @@ function Chat() {
             />
             Auto-generate diagrams
           </label>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </header>
-      
+
       <div className="main-content">
         <div className="chat-container">
           <div className="messages">
@@ -186,11 +230,15 @@ function Chat() {
           </form>
         </div>
       </div>
+
+      <ToastContainer />
     </div>
   );
 }
 
 export default Chat;
+
+
 
 
 

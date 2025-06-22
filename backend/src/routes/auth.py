@@ -37,7 +37,7 @@ DIAGRAMS_DIR.mkdir(exist_ok=True)
 router = APIRouter(prefix='/api', tags=['auth_and_chat'])
 
 # ---------------- LLM + SmartDataFrame Setup ----------------
-DATASET_PATH = "C:\\Users\\Srinivasan\\Documents\\skills\\Projects\\eshipz\\csv-query-assistant\\backend\\filename.csv"
+DATASET_PATH = "C:\\Users\\swath\Desktop\\Project\\eShipz\\Copilot\\backend\\data1.csv"
 df = pd.read_csv(DATASET_PATH)
 
 api_key = os.getenv("GROQ_API_KEY")
