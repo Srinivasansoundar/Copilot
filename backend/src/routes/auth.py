@@ -37,7 +37,7 @@ DIAGRAMS_DIR.mkdir(exist_ok=True)
 router = APIRouter(prefix='/api', tags=['auth_and_chat'])
 
 # ---------------- LLM + SmartDataFrame Setup ----------------
-DATASET_PATH = "C:\\Users\\Srinivasan\\Documents\\skills\\Projects\\eshipz\\csv-query-assistant\\backend\\filename.csv"
+DATASET_PATH = "C:\\Users\\swath\\Desktop\\Project\\eShipz\\Copilot\\backend\\new_dataset.csv"
 df = pd.read_csv(DATASET_PATH)
 
 api_key = os.getenv("GROQ_API_KEY")
@@ -231,21 +231,25 @@ Your tasks are:
 
 ### IMPORTANT COLUMN SELECTION RULE:
 You MUST only select x_column and y_column from the following exact list of column names:
-'_id', 'date', 'is_to_pay', 'is_reverse', 'creation_date', 'order_id',
-'order_source', 'parcel_contents', 'service_type', 'service_options',
-'account_info', 'order_details', 'parcels', 'awb', 'label_meta',
-'charge_weight', 'total_charge', 'slug', 'package_count', 'purpose',
-'is_cod', 'order_status', 'shipment_type', 'customer_referenc',
-'entered_weight', 'invoice_details', 'tracking_link', 'meta_collection',
-'tracking_status', 'active', 'labels_downloaded', 'async_ops_completed',
-'label_format', 'pickup_meta', 'gst_invoices', 'vendor_name',
-'is_csb_v_mode', 'delivery_attempts', 'first_ofd_date',
-'latest_checkpoint_date', 'latest_ofd_date', 'tracking_actual_delivery',
-'tracking_latest_message', 'tracking_latest_msg', 'tracking_pick_date',
-'tracking_return_pick_date', 'tracking_sub_status',
-'webhook_triggered_hash', 'webhook_triggered_states',
-'webhook_triggered_timestamps', 'tracking_expected_delivery',
-'pod_link'
+'_id', 'date', 'is_to_pay', 'is_reverse', 'creation_date', 'order_id', 
+'order_source', 'parcel_contents', 'service_type', 'parcels', 'awb', 
+'label_meta', 'charge_weight', 'total_charge', 'slug', 'package_count', 
+'purpose', 'is_cod', 'order_status', 'shipment_type', 'customer_referenc', 
+'entered_weight', 'invoice_details', 'tracking_link', 'meta_collection', 
+'tracking_status', 'active', 'labels_downloaded', 'async_ops_completed', 
+'label_format', 'pickup_meta', 'gst_invoices', 'vendor_name', 'export_option', 
+'is_csb_v_mode', 'delivery_attempts', 'first_ofd_date', 'latest_checkpoint_date', 
+'latest_ofd_date', 'ofd_reasons', 'ofp_reasons', 'pickup_attempts', 
+'tracking_actual_delivery', 'tracking_latest_location', 'tracking_latest_message', 
+'tracking_latest_msg', 'tracking_pick_date', 'tracking_return_delivery_date', 
+'tracking_return_expected_delivery', 'tracking_return_pick_date', 
+'tracking_return_tracking_number', 'tracking_status_code', 'tracking_sub_status', 
+'webhook_triggered_hash', 'webhook_triggered_states', 'webhook_triggered_timestamps', 
+'tracking_expected_delivery', 'pod_link', 'payment_type', 'currency', 'user_id', 
+'sender_name', 'sender_mobile_number', 'sender_company_name', 'sender_business_type', 
+'sender_postal_code', 'sender_email', 'receiver_name', 'receiver_mobile_number', 
+'receiver_company_name', 'receiver_business_type', 'receiver_postal_code', 'receiver_email'
+
 
 ### VALIDATION RULES BEFORE RESPONDING:
 - Confirm both x_column and y_column exist in the schema above.
