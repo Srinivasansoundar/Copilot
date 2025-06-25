@@ -24,7 +24,7 @@ function Login() {
         e.preventDefault();
         // console.log("hello")
         const { username, password } = loginInfo;
-        
+
         if (!username || !password) {
             return handleError('username and password are required')
         }
@@ -48,9 +48,9 @@ function Login() {
                 handleSuccess('Login successful!');
                 localStorage.setItem('token', access_token);
                 localStorage.setItem('loggedInUser', username); // Use username from loginInfo
-                setTimeout(() => {
-                    navigate('/chat')
-                }, 1000)
+                console.log('login successful')
+                navigate('/chat')
+
             } else {
                 // Error case - backend returns HTTPException with detail
                 const errorMessage = result.detail || 'Login failed';
@@ -132,7 +132,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     )
 }
 export default Login

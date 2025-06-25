@@ -37,7 +37,7 @@ DIAGRAMS_DIR.mkdir(exist_ok=True)
 router = APIRouter(prefix='/api', tags=['auth_and_chat'])
 
 # ---------------- LLM + SmartDataFrame Setup ----------------
-DATASET_PATH = "C:\\Users\\swath\\Desktop\\Project\\eShipz\\Copilot\\backend\\new_dataset.csv"
+DATASET_PATH = "C:\\Users\\Srinivasan\\Documents\\skills\\Projects\\eshipz\\csv-query-assistant\\backend\\new_dataset.csv"
 df = pd.read_csv(DATASET_PATH)
 
 api_key = os.getenv("GROQ_API_KEY")
@@ -81,6 +81,7 @@ async def login_for_access_token(
     db: AsyncSession = Depends(get_db)
 ):
     user = await authenticate_user(db, form_data.username, form_data.password)
+    # user='ram'
     if not user:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
 

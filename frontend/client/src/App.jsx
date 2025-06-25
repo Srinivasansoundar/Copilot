@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Chat from './pages/Chat';
 import './App.css';
-
+import RefrshHandler from './RefreshHandler';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true); // ✅ prevent early routing
@@ -25,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+      <RefrshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
